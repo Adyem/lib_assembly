@@ -2,6 +2,10 @@
 
 .section .text
 .globl  ft_strcpy
+
+ft_strcpy_null:
+        xor     eax, eax            # rax = 0
+        ret
 ft_strcpy:
         mov     rax, rdi
         test    rdi, rdi
@@ -17,9 +21,6 @@ ft_strcpy:
         inc     rdi
         jmp     .ft_strcpy_loop
 .ft_strcpy_end:
-        ret
-.ft_strcpy_null:
-        xor     eax, eax            # rax = 0
         ret
 
 .section .data
