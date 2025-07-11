@@ -15,10 +15,3 @@ ft_strcpy:
         jmp     .ft_strcpy_loop
 .ft_strcpy_end:
         ret
-
-.section .data
-orig1:  .asciz "Hello, Assembly!"
-
-buf1:   .space 50, 0
-orig2:  .byte 0
-buf2:   .space 10, 0
