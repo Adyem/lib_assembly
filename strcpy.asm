@@ -5,9 +5,9 @@
 ft_strcpy:
         mov     rax, rdi
         test    rdi, rdi
-        je      ft_strcpy_null
+        je      .ft_strcpy_null
         test    rsi, rsi
-        je      ft_strcpy_null
+        je      .ft_strcpy_null
 .ft_strcpy_loop:
         mov     bl, byte ptr [rsi]
         mov     byte ptr [rdi], bl
