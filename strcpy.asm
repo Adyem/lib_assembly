@@ -3,15 +3,8 @@
 .section .text
 .globl  ft_strcpy
 
-ft_strcpy_null:
-        xor     eax, eax            # rax = 0
-        ret
 ft_strcpy:
         mov     rax, rdi
-        test    rdi, rdi
-        je      .ft_strcpy_null
-        test    rsi, rsi
-        je      .ft_strcpy_null
 .ft_strcpy_loop:
         mov     bl, byte ptr [rsi]
         mov     byte ptr [rdi], bl

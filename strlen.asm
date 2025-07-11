@@ -2,9 +2,6 @@
     .globl ft_strlen
     .type  ft_strlen, @function
 ft_strlen:
-    test    %rdi, %rdi
-    je      .Lzero
-
     xor     %rcx, %rcx
 .Lloop:
     movzb   (%rdi,%rcx,1), %eax

@@ -15,11 +15,9 @@ orig2:  .asciz  "second string\0"
         .extern ft_strcpy
 
 strlen_test:
-        lea     msg(%rip), %rdi    # &msg
+        lea     msg(%rip), %rdi
         call    ft_strlen
 
-        xor     %rdi, %rdi         # NULL
-        call    ft_strlen
         ret
         .size   strlen_test, .-strlen_test
 
@@ -32,19 +30,12 @@ strcpy_test:
         lea     orig2(%rip), %rsi
         call    ft_strcpy
 
-        mov     $0, %rdi           # NULL dst
-        lea     orig1(%rip), %rsi
-        call    ft_strcpy
-
-        lea     buf1(%rip), %rdi
-        mov     $0, %rsi           # NULL src
-        call    ft_strcpy
         ret
         .size   strcpy_test, .-strcpy_test
 
 main:
         call    strlen_test
         call    strcpy_test
-        xor     %eax, %eax         # return 0
+        xor     %eax, %eax
         ret
         .size   main, .-main
