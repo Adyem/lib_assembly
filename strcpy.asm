@@ -17,8 +17,8 @@ ft_strcpy:
         ret
 
 .section .data
-orig1:  .asciz "Hello, Assembly!"   # zero-terminated string
+orig1:  .asciz "Hello, Assembly!"
 
-buf1:   .space 50, 0                # 50 zero bytes
-orig2:  .byte 0                     # a single NUL
-buf2:   .space 10, 0                # 10 zero bytes
+buf1:   .space 50, 0
+orig2:  .byte 0
+buf2:   .space 10, 0
