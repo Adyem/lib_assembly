@@ -10,7 +10,7 @@ OBJS    = $(SRCS:.asm=.o)
 
 TARGET  = main
 
-.PHONY: all clean
+.PHONY: all clean fclean re
 
 all: $(TARGET)
 
@@ -21,4 +21,9 @@ $(TARGET): $(OBJS)
 	$(AS) $(ASFLAGS) -o $@ $<
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(TARGET)
+
+re: fclean all
