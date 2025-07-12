@@ -7,10 +7,10 @@
 .extern __errno_location
 
 ft_strdup:
-    push %rdi              # save source pointer
-    call ft_strlen         # rax = length of string
-    mov %rax, %rdx         # rdx = length
-    add $1, %rdx           # rdx = length + 1 (size to allocate)
+    push %rdi
+    call ft_strlen
+    mov %rax, %rdx
+    add $1, %rdx
     mov %rdx, %rdi         # argument for malloc
     call malloc
     test %rax, %rax
