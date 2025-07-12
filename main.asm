@@ -11,8 +11,12 @@ write_ret:      .quad 0
 write_errno:    .long 0
 msg_len:        .long 0
 
+read_ret:       .quad 0
+read_errno:     .long 0
+
         .lcomm  buf1, 32
         .lcomm  buf2, 32
+        .lcomm  read_buf, 32
 
         .section .text
         .globl  main
@@ -22,6 +26,7 @@ msg_len:        .long 0
         .extern ft_strcpy
         .extern ft_strcmp
         .extern ft_write
+        .extern ft_read
 
 strlen_test:
         lea     msg(%rip), %rdi
@@ -78,11 +83,25 @@ write_test:
         ret
         .size   write_test, .-write_test
 
+read_test:
+        mov     $16, %edx              # count
+        lea     read_buf(%rip), %rsi   # buf
+        mov     $-1, %edi              # fd
+        call    ft_read
+        mov     %eax, read_ret(%rip)
+        call    __errno_location
+        mov     (%rax), %eax
+        mov     %eax, read_errno(%rip)
+
+        ret
+        .size   read_test, .-read_test
+
 main:
         call    strlen_test
         call    strcpy_test
         call    strcmp_test
         call    write_test
+        call    read_test
         xor     %eax, %eax
         ret
         .size   main, .-main
