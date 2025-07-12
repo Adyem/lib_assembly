@@ -13,6 +13,7 @@ msg_len:        .long 0
 
 read_ret:       .quad 0
 read_errno:     .long 0
+dup_ptr:       .quad 0
 
         .lcomm  buf1, 32
         .lcomm  buf2, 32
@@ -27,6 +28,8 @@ read_errno:     .long 0
         .extern ft_strcmp
         .extern ft_write
         .extern ft_read
+        .extern ft_strdup
+        .extern free
 
 strlen_test:
         lea     msg(%rip), %rdi
@@ -96,12 +99,31 @@ read_test:
         ret
         .size   read_test, .-read_test
 
+strdup_test:
+        lea     orig1(%rip), %rdi
+        call    ft_strdup
+        mov     %rax, dup_ptr(%rip)
+        test    %rax, %rax
+        je      .Ldup_end
+        mov     %rax, %rdi
+        call    ft_strlen
+        mov     dup_ptr(%rip), %rsi
+        mov     %eax, %edx
+        mov     $1, %edi
+        call    ft_write
+        mov     dup_ptr(%rip), %rdi
+        call    free
+.Ldup_end:
+        ret
+        .size   strdup_test, .-strdup_test
+
 main:
         call    strlen_test
         call    strcpy_test
         call    strcmp_test
         call    write_test
         call    read_test
+        call    strdup_test
         xor     %eax, %eax
         ret
         .size   main, .-main
