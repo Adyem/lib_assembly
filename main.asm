@@ -57,18 +57,15 @@ strcmp_test:
         .size   strcmp_test, .-strcmp_test
 
 write_test:
-        # compute length of message and store for reuse
         lea     msg(%rip), %rdi
         call    ft_strlen
         mov     %eax, msg_len(%rip)
 
-        # valid write to stdout
         mov     %eax, %edx              # count
         lea     msg(%rip), %rsi         # buf
         mov     $1, %edi                # fd
         call    ft_write
 
-        # invalid write to trigger errno
         mov     msg_len(%rip), %edx
         lea     msg(%rip), %rsi
         mov     $-1, %edi
