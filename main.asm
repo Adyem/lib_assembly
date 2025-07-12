@@ -4,6 +4,8 @@ msg:    .asciz  "Hello, world!\n"
 orig1:  .asciz  "first string\0"
 orig2:  .asciz  "second string\0"
 
+newline:        .byte 10
+
 cmp_res1:       .long 0
 cmp_res2:       .long 0
 
@@ -30,10 +32,18 @@ dup_ptr:       .quad 0
         .extern ft_read
         .extern ft_strdup
         .extern free
+        .extern ft_putnbr
 
 strlen_test:
         lea     msg(%rip), %rdi
         call    ft_strlen
+
+        mov     %rax, %rdi
+        call    ft_putnbr
+        mov     $1, %edx
+        lea     newline(%rip), %rsi
+        mov     $1, %edi
+        call    ft_write
 
         ret
         .size   strlen_test, .-strlen_test
@@ -56,10 +66,24 @@ strcmp_test:
         call    ft_strcmp
         mov     %eax, cmp_res1(%rip)
 
+        movsxd  %eax, %rdi
+        call    ft_putnbr
+        mov     $1, %edx
+        lea     newline(%rip), %rsi
+        mov     $1, %edi
+        call    ft_write
+
         lea     orig1(%rip), %rdi
         lea     orig1(%rip), %rsi
         call    ft_strcmp
         mov     %eax, cmp_res2(%rip)
+
+        movsxd  %eax, %rdi
+        call    ft_putnbr
+        mov     $1, %edx
+        lea     newline(%rip), %rsi
+        mov     $1, %edi
+        call    ft_write
 
         ret
         .size   strcmp_test, .-strcmp_test
