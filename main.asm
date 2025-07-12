@@ -1,11 +1,15 @@
         .section .data
-msg:    .asciz  "Hello, world!\0"
+msg:    .asciz  "Hello, world!\n"
 
 orig1:  .asciz  "first string\0"
 orig2:  .asciz  "second string\0"
 
 cmp_res1:       .long 0
 cmp_res2:       .long 0
+
+write_ret:      .quad 0
+write_errno:    .long 0
+msg_len:        .long 0
 
         .lcomm  buf1, 32
         .lcomm  buf2, 32
@@ -17,6 +21,7 @@ cmp_res2:       .long 0
         .extern ft_strlen
         .extern ft_strcpy
         .extern ft_strcmp
+        .extern ft_write
 
 strlen_test:
         lea     msg(%rip), %rdi
@@ -51,10 +56,36 @@ strcmp_test:
         ret
         .size   strcmp_test, .-strcmp_test
 
+write_test:
+        # compute length of message and store for reuse
+        lea     msg(%rip), %rdi
+        call    ft_strlen
+        mov     %eax, msg_len(%rip)
+
+        # valid write to stdout
+        mov     %eax, %edx              # count
+        lea     msg(%rip), %rsi         # buf
+        mov     $1, %edi                # fd
+        call    ft_write
+
+        # invalid write to trigger errno
+        mov     msg_len(%rip), %edx
+        lea     msg(%rip), %rsi
+        mov     $-1, %edi
+        call    ft_write
+        mov     %eax, write_ret(%rip)
+        call    __errno_location
+        mov     (%rax), %eax
+        mov     %eax, write_errno(%rip)
+
+        ret
+        .size   write_test, .-write_test
+
 main:
         call    strlen_test
         call    strcpy_test
         call    strcmp_test
+        call    write_test
         xor     %eax, %eax
         ret
         .size   main, .-main

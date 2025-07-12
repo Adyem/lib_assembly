@@ -9,7 +9,7 @@ AS      = as
 ASFLAGS = -g
 
 # List of all .asm sources
-SRCS    = main.asm strlen.asm strcpy.asm ft_strcmp.asm
+SRCS    = main.asm strlen.asm strcpy.asm ft_strcmp.asm ft_write.asm
 OBJS    = $(SRCS:.asm=.o)
 
 # Name of the final executable
