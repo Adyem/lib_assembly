@@ -69,9 +69,9 @@ write_test:
         call    ft_strlen
         mov     %eax, msg_len(%rip)
 
-        mov     %eax, %edx              # count
-        lea     msg(%rip), %rsi         # buf
-        mov     $1, %edi                # fd
+        mov     %eax, %edx
+        lea     msg(%rip), %rsi
+        mov     $1, %edi
         call    ft_write
 
         mov     msg_len(%rip), %edx
@@ -87,9 +87,9 @@ write_test:
         .size   write_test, .-write_test
 
 read_test:
-        mov     $16, %edx              # count
-        lea     read_buf(%rip), %rsi   # buf
-        mov     $-1, %edi              # fd
+        mov     $16, %edx
+        lea     read_buf(%rip), %rsi
+        mov     $-1, %edi
         call    ft_read
         mov     %eax, read_ret(%rip)
         call    __errno_location
