@@ -5,7 +5,7 @@ CFLAGS  = -Wall -g
 AS      = as
 ASFLAGS = -g
 
-SRCS    = main.asm strlen.asm strcpy.asm ft_strcmp.asm ft_write.asm ft_read.asm ft_strdup.asm
+SRCS    = main.asm strlen.asm strcpy.asm ft_strcmp.asm ft_write.asm ft_read.asm ft_strdup.asm ft_putnbr.asm
 OBJS    = $(SRCS:.asm=.o)
 
 TARGET  = main
