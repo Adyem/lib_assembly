@@ -1,30 +1,31 @@
         .section .data
-msg:    .asciz  "Hello, world!\n"
-strlen_hdr:    .asciz  "== ft_strlen tests ==\n"
-strcmp_hdr:    .asciz  "== ft_strcmp tests ==\n"
-strcpy_head:   .asciz  "== ft_strcpy tests ==\n"
-write_hdr:     .asciz  "== ft_write tests ==\n"
-read_hdr:      .asciz  "== ft_read tests ==\n"
-strdup_hdr:    .asciz  "== ft_strdup tests ==\n"
+msg:    	   	.asciz  "Hello, world!\n"
+strlen_hdr:    	.asciz  "== ft_strlen tests ==\n"
+strcmp_hdr:    	.asciz  "== ft_strcmp tests ==\n"
+strcpy_head:   	.asciz  "== ft_strcpy tests ==\n"
+write_hdr:     	.asciz  "== ft_write tests ==\n"
+read_hdr:      	.asciz  "== ft_read tests ==\n"
+strdup_hdr:    	.asciz  "== ft_strdup tests ==\n"
 
-strlen_msg1:   .asciz  "ft_strlen(\"Hello, world!\\n\") = "
-strlen_msg2:   .asciz  "ft_strlen(\"\") = "
-strcpy_hdr:    .asciz  "ft_strcpy results:\n"
-dest1_lbl:     .asciz  "buf1: "
-dest2_lbl:     .asciz  "buf2: "
-strcmp_msg1:   .asciz  "ft_strcmp(orig1, orig2) = "
-strcmp_msg2:   .asciz  "ft_strcmp(orig1, orig1) = "
-write_msg1:    .asciz  "ft_write valid return = "
-write_msg2:    .asciz  "ft_write invalid return = "
-read_msg:      .asciz  "ft_read invalid return = "
-errno_lbl:     .asciz  " errno: "
-dup_msg:       .asciz  "ft_strdup result: "
-dup_fail:      .asciz  "ft_strdup failed"
-nl_str:        .asciz  "\n"
-empty_str:     .byte 0
+strlen_msg1:   	.asciz  "ft_strlen(\"Hello, world!\\n\") = "
+strlen_msg2:   	.asciz  "ft_strlen(\"\") = "
+strlen_msg3:   	.asciz  "hello world: "
+strcpy_hdr:    	.asciz  "ft_strcpy results:\n"
+dest1_lbl:     	.asciz  "buf1: "
+dest2_lbl:     	.asciz  "buf2: "
+strcmp_msg1:   	.asciz  "ft_strcmp(orig1, orig2) = "
+strcmp_msg2:   	.asciz  "ft_strcmp(orig1, orig1) = "
+write_msg1:    	.asciz  "ft_write valid return = "
+write_msg2:    	.asciz  "ft_write invalid return = "
+read_msg:      	.asciz  "ft_read invalid return = "
+errno_lbl:     	.asciz  " errno: "
+dup_msg:       	.asciz  "ft_strdup result: "
+dup_fail:      	.asciz  "ft_strdup failed"
+nl_str:        	.asciz  "\n"
+empty_str:     	.byte 0
 
-orig1:  .asciz  "first string\0"
-orig2:  .asciz  "second string\0"
+orig1:  	   	.asciz  "first string\0"
+orig2:  	   	.asciz  "second string\0"
 
 newline:        .byte 10
 
@@ -37,7 +38,7 @@ msg_len:        .long 0
 
 read_ret:       .quad 0
 read_errno:     .long 0
-dup_ptr:       .quad 0
+dup_ptr:        .quad 0
 
         .lcomm  buf1, 32
         .lcomm  buf2, 32
@@ -86,6 +87,15 @@ strlen_test:
         call    ft_putnbr
         lea     nl_str(%rip), %rdi
         call    print_str
+
+		lea		strlen_msg3(%rip), %rdi
+		call	print_str
+		lea		strlen_msg3(%rip), %rdi
+		call	ft_strlen
+		mov		%rax, %rdi
+		call	ft_putnbr
+		lea		nl_str(%rip), %rdi
+		call	print_str
 
         ret
         .size   strlen_test, .-strlen_test
@@ -221,6 +231,7 @@ strdup_test:
         mov     dup_ptr(%rip), %rdi
         call    free
         ret
+
 .Ldup_fail_print:
         lea     dup_fail(%rip), %rdi
         call    print_str
